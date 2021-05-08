@@ -1,24 +1,26 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
-import VueFire from 'vuefire'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import { createApp } from 'vue'
+//import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import App from './App.vue'
+import store from './store'
+import router from './router'
+// import * as firebase from "firebase"      
+// import VueFirebase from 'vue-firebase'
 
-Vue.config.productionTip = false
+// Vue.use(VueFirebase, {firebase: firebase, config: {
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>'
-})
+// }});
 
-Vue.use(VueFire)
-firebase.initializeApp({
-  projectId: 'YOUR_PROJECT_ID',
-  databaseURL: 'YOUR_DB_URL'
-})
+// Make BootstrapVue available throughout your project
+//Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+//Vue.use(IconsPlugin)
 
-export const db = firebase.firestore()
+createApp(App).use(BootstrapVue).use(IconsPlugin).use(router).use(store).mount('#app')
+// new Vue({
+//     store,
+//     router,
+//     render: h => h(App)
+//   }).$mount('#app')
