@@ -29,6 +29,7 @@
 
 <script>
 import { mapState } from "vuex";
+import api from '@utils/request';
 
 export default {
 	name: "Chatroom",
