@@ -5,7 +5,7 @@
       <div class="chatbox border border-dark">
 				<b-row>
 					<!-- 顯示對話內容 -->
-					<p v-for="(message, index) in list" :key="index">
+					<p v-for="(message, index) in messages" :key="index">
 						${ message }
 					</p>
 				</b-row>
@@ -22,6 +22,15 @@
 						></b-form-input>
 					</div>
 				</b-form-group>
+				<b-button
+				class="mt-2"
+				v-b-modal.modal-center
+				@click="addMessage"
+				:disabled="buttonDisable"
+				size="lg"
+				>
+					Send
+				</b-button>
 			</div>
     </div>
   </div>
@@ -65,26 +74,29 @@ export default {
 			show: true,
 		}
 	},
+	firebase: {
+		messages: fetcheddata
+	},
 	mounted() {
 		// 初始化list
-		this.$store
-      .dispatch("XXXX/XXXXXXX", { release: this.release })
-      .then(() => {
-        this.initList();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+	// 	this.$store
+    //   .dispatch("XXXX/XXXXXXX", { release: this.release })
+    //   .then(() => {
+    //     this.initList();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 	},
 	computed: {
-    ...mapState({
-      msgList: (state) => state.XXX.XXXXX,
-    }),
+    // ...mapState({
+    //   msgList: (state) => state.XXX.XXXXX,
+    // }),
   },
 	mehtods: {
-		initPaginatedItems() {
-      this.list = this.msgList;		
-    },
+		// initPaginatedItems() {
+    // 	this.list = this.msgList;		
+    // },
 		Trypush(){
 			var FB = startfirebase;
 			console.log(FB);
@@ -95,6 +107,9 @@ export default {
 				message: "coco daisuki"
 			}
 			ref.push(data);
+		},
+		addMessage() {
+			ref.push(this.form.msg);
 		}
 	},
 
