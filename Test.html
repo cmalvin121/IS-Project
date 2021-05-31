@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Test</title>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js'></script>
+	</head>
+	<body>
+		<h1>Test</h1>
+		<h3>選擇加密方式：<br>選擇AES需輸入Content與Key，選擇Base64僅需輸入Content但僅可輸入ASCII。
+		<form>
+		<input type="radio" name="choose" id="c1" value="AES" checked>AES   <!--加密訊息用-->
+		<input type="radio" name="choose" id="c2" value="Base64">Base64   <!--加密密碼用-->
+		</form>
+		</h3>
+		<h3>Content：<input type="text" id="getText" value="測試訊息 Test Content"></h3>
+		<h3>Key：<input type="text" id="getKey" value="國立臺北科技大學NTUT"></h3>
+		<button onclick="enCode()">Encode</button>
+		<button onclick="deCode()">Decode</button>
+		<h3>測試結果：</h3><h3 id="result"></h3>
+		
+		<script>
+		function enCode() {
+				if(document.getElementById("c1").checked==true){   //判斷加密選擇
+					var str = document.getElementById("getText").value.toString();   //取得Content
+					var key = document.getElementById("getKey").value.toString();   //取得Key
+					res = CryptoJS.AES.encrypt(str, key).toString();   //AES加密
+					document.getElementById("result").innerHTML = "AES Encode: " + res.toString();   //顯示結果
+				}
+				else if(document.getElementById("c2").checked==true){
+					var str = document.getElementById("getText").value.toString();   //取得Content
+					res = btoa(str);   //Base64加密
+					document.getElementById("result").innerHTML = "Base64 Encode: " + res.toString();   //顯示結果
+				}
+			}
+		function deCode() {
+				if(document.getElementById("c1").checked==true){
+					var str = document.getElementById("getText").value.toString();
+					var key = document.getElementById("getKey").value.toString();
+					res = CryptoJS.AES.decrypt(str, key).toString(CryptoJS.enc.Utf8);
+					document.getElementById("result").innerHTML = "AES Decode: " + res.toString();
+				}
+				else if(document.getElementById("c2").checked==true){
+					var str = document.getElementById("getText").value.toString();
+					res = atob(str);
+					document.getElementById("result").innerHTML = "Base64 Decode: " + res.toString();
+				}
+			}
+		</script>
+	</body>
+</html>
